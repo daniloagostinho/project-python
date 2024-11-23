@@ -7,8 +7,8 @@ app = Flask(__name__)
 CORS(app, resources={r"/chat": {"origins": "http://localhost:3000"}})
 
 # Load pre-trained model and tokenizer
-#model_name = "microsoft/DialoGPT-medium"
-model_name = "distilgpt2"
+model_name = "microsoft/DialoGPT-medium"
+# model_name = "distilgpt2"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
