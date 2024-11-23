@@ -1,18 +1,20 @@
 from flask import Flask, request, jsonify
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
-from flask_cors import CORS  # Import CORS if needed
+from flask_cors import CORS  # Import the CORS extension
 
 app = Flask(__name__)
-CORS(app, resources={r"/chat": {"origins": "http://localhost:3000"}})
+CORS(app)  # Enable CORS for all routes
+
+# If you want to restrict CORS to a specific origin, you can specify it:
+# CORS(app, resources={r"/chat": {"origins": "http://localhost:3000"}})
 
 # Load pre-trained model and tokenizer
 model_name = "microsoft/DialoGPT-medium"
-# model_name = "distilgpt2"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
-# Dictionary to hold conversation history per user
+# Dictionary to hold conversation history per user (if needed)
 user_histories = {}
 
 @app.route('/chat', methods=['POST'])
@@ -55,4 +57,5 @@ def chat():
 
     return jsonify({'reply': response})
 
-# Vercel looks for 'app' in app.py, so no need for 'if __name__ == "__main__":' block
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
