@@ -11,7 +11,8 @@ CORS(app)  # Enable CORS for all routes
 CORS(app, resources={r"/*": {"origins": ["*"]}})
 
 # Load pre-trained model and tokenizer
-model_name = "microsoft/DialoGPT-medium"
+# model_name = "microsoft/DialoGPT-medium"
+model_name = "microsoft/DialoGPT-large"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
